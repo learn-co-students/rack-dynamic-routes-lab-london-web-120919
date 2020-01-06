@@ -1,8 +1,8 @@
-require 'pry'
+# require 'pry'
 
 class Application
 
-    @@items = []
+    @@items = [Item.new("Apple", 6), Item.new("Banana", 3.5)]
 
     def call(env)
 
@@ -13,7 +13,7 @@ class Application
             item_name = req.path.split("/items/").last
             
             item = @@items.find { |item| item.name == item_name }
-            binding.pry
+            # binding.pry
             if item
                 resp.write item.price
             else
@@ -24,5 +24,7 @@ class Application
             resp.write "Route not found"
             resp.status = 404
         end
+
+        resp.finish
     end
 end
